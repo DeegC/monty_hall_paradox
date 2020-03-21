@@ -11,7 +11,7 @@ The answer, which is at first counter-intuitive, is that you should always switc
 
 ## The Code
 
-Below is the algorithm written as a method in Ruby. The full program can be found in this repository as `monty_hall.rb`.  Note: the code purposefully avoids some Rubyisms to make it easier for non-Rubyists to understand.
+Below is the algorithm written as a method in Ruby. The full program can be found in this repository as [monty_hall.rb](monty_hall.rb).  Note: the code purposefully avoids some Rubyisms to make it easier for non-Rubyists to understand.
 
 ```ruby
 # Run a single simulation of the Monty Hall problem.
@@ -93,7 +93,7 @@ There are two areas to pay attention to.  The first area is the logic that choos
   end
 ```
 
-It randomly selects a door until it finds an appropriate door.  Note that--as stated by the problem--*Monty never opens the winning door*.  If the game allowed Monty to occasionally open the winning door then the outcomes would be different.
+It randomly selects a door until it finds an appropriate door.  Note that--as stated by the problem--**Monty never opens the winning door**.  If the game allowed Monty to occasionally open the winning door then the outcomes would be different (we'll discuss that later).
 
 The second area to inspect is the logic that determins if the contestant should switch:
 
@@ -105,7 +105,7 @@ The second area to inspect is the logic that determins if the contestant should 
   end
 ```
 
-Note that the variable `monty_opens` isn't used!  In fact, other than printing it out, the door that Monty opens has no bearing on the rest of the code.  The crux of understanding the apparent paradox is this: despite opening a door Monty hasn't given you any new information, which is evident in the code because the variable `monty_opens` is never referenced.
+Note that the variable `monty_opens` isn't used!  In fact, other than printing it out, the door that Monty opens has no bearing on the rest of the code.  The crux of understanding the apparent paradox is this: despite opening a door Monty hasn't given the contestant any new information, which is evident in the code because the variable `monty_opens` is never referenced.
 
 ## Refactored
 
@@ -135,11 +135,7 @@ If you didn't care about printing the choosen doors, you could get really agress
 ```ruby
 def play
   # If the contestant randomly chooses the winning door they should stay, otherwise switch.
-  if rand(3) == rand(3)
-    return 'stay'
-  else
-    return 'switch'
-  end
+  return rand(3) == rand(3) ? 'stay' : 'switch'
 end
 ```
 
@@ -152,16 +148,20 @@ How can this be?  It certainly seems like Monty is giving you new information wh
 What if instead of opening a door, Monty just tells the contestant about the other doors:
 
 > *Contestant:* I choose door X
+
 > *Monty:* Would you rather have what's behind door X or behind door Y *and* Z?
+
 > *Contestant:* I'll switch and take doors Y and Z.
+
 > *Monty:* Are you sure?  One of those doors has to be empty.
+
 > *Contestant:* Yes, I still want Y and Z.
 
 In his last statement Monty has not said anything we don't already know: one of the two doors has to be empty. The contestant still wants to switch because they know that the chances of Y and Z both being empty is less than just X being empty.
 
 ## What if Monty could open the winning door?
 
-To see why the constraint matters, let's rewrite the code so that Monty might randomly open the winning door. The code is similar to the original with a few lines removed:
+To see why the constraint matters, let's rewrite the code to allow Monty to randomly open the winning door. The code is similar to the original with a few lines removed:
 
 ```ruby
   monty_opens = nil
@@ -191,7 +191,7 @@ But now when we determine if the contestant should switch or not, we also have t
   end
 ```
 
-Unlike the original example, we use `monty_opens` to help determine the final outcome.  In this case Monty has given us new information!  This version is saved as `monty_hall_opens_door.rb` and if you run it you get a different outcome:
+Unlike the original example, we use `monty_opens` to help determine the final outcome.  In this case Monty has given us new information!  This version is saved as [monty_hall_opens_door.rb](monty_hall_opens_door.rb) and if you run it you get a different outcome:
 
 ```
 ...
