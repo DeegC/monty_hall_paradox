@@ -143,9 +143,12 @@ In the end it only matters if the contestant chose the winning door.  What Monty
 
 ## Whoa
 
-How can this be?  It certainly seems like Monty is giving you new information when he opens a door.  The answer lies in his constraints: he will never open the winning door.
+How can this be?  It certainly seems like Monty is giving you new information when he opens a door.  The answer lies in his constraints:
 
-What if instead of opening a door, Monty just tells the contestant about the other doors:
+  * Monty will always open a door and make the offer to switch (i.e. we assume no gamemanship from Monty).
+  * He will never open the winning door.
+
+The second constraint is the important one.  What if instead of opening a door, Monty just tells the contestant about the other doors:
 
 > *Contestant:* I choose door X
 
